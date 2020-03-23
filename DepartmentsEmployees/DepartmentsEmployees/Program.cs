@@ -1,6 +1,7 @@
 ﻿using DepartmentsEmployees.Data;
 using DepartmentsEmployees.Models;
 using System;
+using System.Linq;
 
 namespace DepartmentsEmployees
 {
@@ -12,35 +13,133 @@ namespace DepartmentsEmployees
             var repo = new EmployeeRepository();
             var deptRepo = new DepartmentRepository();
             //That both classes has method that gets all employees. Use it and store all them employees in a var.
-            var departments = deptRepo.GetAllDepartments();
-            var employees = repo.GetAllEmployees();
+           
 
-            Department legal = new Department()
-            {
-                DeptName = "Legal"
-            };
-
-            //Use loops to write line
-            foreach (var employee in employees)
-            {
-                Console.WriteLine($"{employee.FirstName} {employee.LastName} is in {employee.Department.DeptName}!!");
-            };
-
-            //Use the method that gets a single employee by id and pass in an Id and set it to var.
             var employeeWithId2 = repo.GetEmployeeById(2);
-            //Write it out
-            Console.WriteLine($"Employee with Id 2 is {employeeWithId2.FirstName} {employeeWithId2.LastName}");
+          
 
-            foreach (var dept in departments)
+            while (true)
             {
-                Console.WriteLine($"{dept.DeptName}");
-            };
+                var departments = deptRepo.GetAllDepartments();
+                var employees = repo.GetAllEmployees();
+                Console.WriteLine("Welcome to muh Database!! ");
+                Console.WriteLine("Press 1 for Departments");
+                Console.WriteLine("Press 2 for Employee");
+                Console.WriteLine("Press 3 for a full report");
+                Console.WriteLine("Press 4 to get outta here");
 
-            var deptWithId3 = deptRepo.GetDepartmentById(3);
-            Console.WriteLine($"Department numbah 3 is {deptWithId3.DeptName}");
+                string option = Console.ReadLine();
 
-            //Adds a new department
-            //deptRepo.AddDepartment(legal);
+                if (option == "1")
+                {
+                    Console.Clear();
+                    Console.WriteLine("---DEPARTMENTS---");
+                    Console.WriteLine("Press 1 to add a Department");
+                    Console.WriteLine("Press 2 to add a Delete");
+                    Console.WriteLine("Press 3 to return");
+                    string deptOption = Console.ReadLine();
+
+                    switch (Int32.Parse(deptOption))
+                    {
+                        case 1:
+                            Console.Clear();
+                            Console.WriteLine("Name of Department?");
+                            var deptNameInput = Console.ReadLine();
+                            Department newDepartment = new Department() { DeptName = deptNameInput };
+                            deptRepo.AddDepartment(newDepartment);
+                          break;
+
+                        case 2:
+                            Console.Clear();
+                            Console.WriteLine("Delete which Department?");
+                            for (var i = 0; i < departments.Count; i++)
+                            {
+                                Console.WriteLine($"{departments[i].Id}  {departments[i].DeptName}");
+                            }
+                            var deleteDeptInput = Int32.Parse(Console.ReadLine());
+                            deptRepo.DeleteDepartment(deleteDeptInput);
+                            break;
+                        case 3:
+                            break;
+
+                        default:
+                            break;
+                    }
+                }
+                else if (option == "2")
+                {
+                    Console.Clear();
+                    Console.WriteLine("---EMPLOYEES---");
+                    Console.WriteLine("Press 1 to add an employee");
+                    Console.WriteLine("Press 2 to Fire an Employee");
+                    Console.WriteLine("Press 3 to return");
+                    string empOption = Console.ReadLine();
+
+                    switch (Int32.Parse(empOption))
+                    {
+                        case 1:
+                            Console.Clear();
+                            Console.WriteLine("First name of Employee?");
+                            var employeeFirstNameInput = Console.ReadLine();
+                            Console.WriteLine("Last Name of Employee?");
+                            var employeeLastNameInput = Console.ReadLine();
+                            Console.WriteLine("Which Department do they work in?");
+                            foreach(var dept in departments)
+                            {
+                                Console.WriteLine($"{dept.Id} {dept.DeptName}");
+                            }
+                            var employeeDeptChoice = Console.ReadLine();
+                            var selectedDept = departments.Where(dept => int.Parse(employeeDeptChoice) == dept.Id).FirstOrDefault();
+
+                            Employee newEmployee = new Employee() { FirstName = employeeFirstNameInput, LastName = employeeLastNameInput, DepartmentId = selectedDept.Id };
+                            repo.AddEmployee(newEmployee);
+                            break;
+
+                        case 2:
+                            Console.Clear();
+                            Console.WriteLine("Fire which Employee?");
+                            for (var i = 0; i < employees.Count; i++)
+                            {
+                                Console.WriteLine($"{employees[i].Id}  {employees[i].FirstName} {employees[i].LastName}");
+                            }
+                            var deleteEmployeeInput = Int32.Parse(Console.ReadLine());
+                            repo.DeleteEmployee(deleteEmployeeInput);
+                            break;
+                        case 3:
+                            break;
+
+                        default:
+                            break;
+                    }
+                }
+                else if (option == "3")
+                {
+                    Console.Clear();
+                    Console.WriteLine("------------------");
+                    foreach(var dept in departments)
+                    {
+                      Console.WriteLine($"{dept.DeptName} has the following employees:");
+                      foreach(var employee in employees)
+                        {
+                            if (employee.DepartmentId == dept.Id)
+                            {
+                                Console.WriteLine($"{employee.FirstName} {employee.LastName}");
+                            }
+                        }
+                    }
+                    Console.WriteLine("------------------");
+                }
+                else
+                {
+                    Console.WriteLine("See ya Later");
+                    break;
+                }
+
+            }
+
+
+
+
 
         }
     }

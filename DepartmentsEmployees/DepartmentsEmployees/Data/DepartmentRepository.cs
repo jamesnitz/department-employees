@@ -74,6 +74,50 @@ namespace DepartmentsEmployees.Data
             // when this method is finished we can look in the database and see the new department.
         }
 
+            //DELETE department
+
+        public void DeleteDepartment(int departmentId)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+
+                using(SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"DELETE FROM Department WHERE Id = @id";
+
+                    cmd.Parameters.Add(new SqlParameter("@id", departmentId));
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        
+        }
+
+          public void UpdateDepartment(int departmentId, Department department)
+         {
+            using(SqlConnection conn = Connection)
+                {
+                conn.Open();
+                
+                using(SqlCommand cmd = conn.CreateCommand())
+                    {
+                    cmd.CommandText = @"
+                        UPDATE department
+                        SET DeptName= @DeptName;
+                        Where Id = @id";
+
+                    cmd.Parameters.Add(new SqlParameter("@DeptName", department.DeptName));      
+
+                    cmd.Parameters.Add(new SqlParameter("@id", departmentId));
+                    // We don't expect anything back from the database(It's not a real query so we say execute non query)
+                    cmd.ExecuteNonQuery();
+                }
+            }
+         }
+
+
+
         public Department GetDepartmentById(int departmentId)
         {
             using (SqlConnection conn = Connection)

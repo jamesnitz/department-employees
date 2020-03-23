@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\james\\source\\repos\\DepartmentsEmployees\\DepartmentsEmployees\\DepartmentsEmployees.csproj": {}
+    "C:\\Users\\james\\workspace\\csharp\\sql\\department-employees\\DepartmentsEmployees\\DepartmentsEmployees\\DepartmentsEmployees.csproj": {}
   },
   "projects": {
-    "C:\\Users\\james\\source\\repos\\DepartmentsEmployees\\DepartmentsEmployees\\DepartmentsEmployees.csproj": {
+    "C:\\Users\\james\\workspace\\csharp\\sql\\department-employees\\DepartmentsEmployees\\DepartmentsEmployees\\DepartmentsEmployees.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\james\\source\\repos\\DepartmentsEmployees\\DepartmentsEmployees\\DepartmentsEmployees.csproj",
+        "projectUniqueName": "C:\\Users\\james\\workspace\\csharp\\sql\\department-employees\\DepartmentsEmployees\\DepartmentsEmployees\\DepartmentsEmployees.csproj",
         "projectName": "DepartmentsEmployees",
-        "projectPath": "C:\\Users\\james\\source\\repos\\DepartmentsEmployees\\DepartmentsEmployees\\DepartmentsEmployees.csproj",
+        "projectPath": "C:\\Users\\james\\workspace\\csharp\\sql\\department-employees\\DepartmentsEmployees\\DepartmentsEmployees\\DepartmentsEmployees.csproj",
         "packagesPath": "C:\\Users\\james\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\james\\source\\repos\\DepartmentsEmployees\\DepartmentsEmployees\\obj\\",
+        "outputPath": "C:\\Users\\james\\workspace\\csharp\\sql\\department-employees\\DepartmentsEmployees\\DepartmentsEmployees\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\james\\AppData\\Roaming\\NuGet\\NuGet.Config",
