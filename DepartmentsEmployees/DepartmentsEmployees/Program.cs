@@ -57,8 +57,26 @@ namespace DepartmentsEmployees
                                 Console.WriteLine($"{departments[i].Id}  {departments[i].DeptName}");
                             }
                             var deleteDeptInput = Int32.Parse(Console.ReadLine());
-                            deptRepo.DeleteDepartment(deleteDeptInput);
-                            break;
+                            try
+                            {
+                                deptRepo.DeleteDepartment(deleteDeptInput);
+                                break;
+                            }
+                            catch
+                            {
+                                
+                                Console.Clear();
+                                Console.WriteLine("Cannot delete department with working employees:");
+                                foreach(var employee in employees)
+                                {
+                                    if (employee.DepartmentId == deleteDeptInput)
+                                    {
+                                        Console.WriteLine($"{employee.FirstName} {employee.LastName}");
+                                        Console.WriteLine("");
+                                    }
+                                }
+                                break;
+                            }
                         case 3:
                             break;
 
