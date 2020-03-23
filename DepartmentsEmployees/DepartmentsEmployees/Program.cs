@@ -22,7 +22,7 @@ namespace DepartmentsEmployees
             {
                 var departments = deptRepo.GetAllDepartments();
                 var employees = repo.GetAllEmployees();
-                Console.WriteLine("Welcome to muh Database!! ");
+                Console.WriteLine("Welcome to muh Database!!");
                 Console.WriteLine("Press 1 for Departments");
                 Console.WriteLine("Press 2 for Employee");
                 Console.WriteLine("Press 3 for a full report");
@@ -66,7 +66,8 @@ namespace DepartmentsEmployees
                             {
                                 
                                 Console.Clear();
-                                Console.WriteLine("Cannot delete department with working employees:");
+                                Console.WriteLine("Cannot delete department with working employees.");
+                                Console.WriteLine("Please fire or transfer:");
                                 foreach(var employee in employees)
                                 {
                                     if (employee.DepartmentId == deleteDeptInput)
@@ -90,7 +91,8 @@ namespace DepartmentsEmployees
                     Console.WriteLine("---EMPLOYEES---");
                     Console.WriteLine("Press 1 to add an employee");
                     Console.WriteLine("Press 2 to Fire an Employee");
-                    Console.WriteLine("Press 3 to return");
+                    Console.WriteLine("Press 3 to update an employee");
+                    Console.WriteLine("Press 4 to return");
                     string empOption = Console.ReadLine();
 
                     switch (Int32.Parse(empOption))
@@ -124,6 +126,54 @@ namespace DepartmentsEmployees
                             repo.DeleteEmployee(deleteEmployeeInput);
                             break;
                         case 3:
+                            Console.Clear();
+                            Console.WriteLine("Who you want to update?");
+                            for (var i = 0; i < employees.Count; i++)
+                            {
+                                Console.WriteLine($"{employees[i].Id}  {employees[i].FirstName} {employees[i].LastName}");
+                            }
+                            var updateEmployeeInput = Int32.Parse(Console.ReadLine());
+                            var selectedEmployee = repo.GetEmployeeById(updateEmployeeInput);
+                            Console.Clear();
+                            Console.WriteLine($"{selectedEmployee.FirstName} {selectedEmployee.LastName} {selectedEmployee.Department.DeptName}");
+                            Console.WriteLine("");
+                            Console.WriteLine("What would you like to update?");
+                            Console.WriteLine("1. Name");
+                            Console.WriteLine("2. Department");
+                            var selectedUpdateInput = Console.ReadLine();
+                            switch(Int32.Parse(selectedUpdateInput))
+                            {
+                                case 1:
+                                    Console.WriteLine("Enter in new first name?");
+                                    var newFirstName = Console.ReadLine();
+                                    Console.WriteLine("Enter in new last name?");
+                                    var newLastName = Console.ReadLine();
+                                    selectedEmployee.FirstName = newFirstName;
+                                    selectedEmployee.LastName = newLastName;
+                                    repo.UpdateEmployee(selectedEmployee.Id, selectedEmployee);
+                                    break;
+                                case 2:
+                                    Console.WriteLine("What department do they work in now?");
+                                    for (var i = 0; i < departments.Count; i++)
+                                    {
+                                        Console.WriteLine($"{departments[i].Id}  {departments[i].DeptName}");
+                                    }
+                                    var selectedDeptInput = Int32.Parse(Console.ReadLine());
+
+                                    var newDept = departments.First(dept => dept.Id == selectedDeptInput);
+                                    selectedEmployee.DepartmentId = newDept.Id;
+                                    repo.UpdateEmployee(selectedEmployee.Id, selectedEmployee);
+                                    break;
+
+                                default:
+                                    break;
+                            }
+
+
+
+
+                            break;
+                        case 4:
                             break;
 
                         default:

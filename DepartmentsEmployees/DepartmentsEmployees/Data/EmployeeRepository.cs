@@ -133,7 +133,7 @@ namespace DepartmentsEmployees.Data
                     {
                     cmd.CommandText = @"
                         UPDATE Employee
-                        SET FirstName = @firstName LastName = @lastName, DepartmentId = @departmentID
+                        SET FirstName = @firstName, LastName = @lastName, DepartmentId = @departmentID
                         Where Id = @id";
 
                     cmd.Parameters.Add(new SqlParameter("@firstName", employee.FirstName));      
