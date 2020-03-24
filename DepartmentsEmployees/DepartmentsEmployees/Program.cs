@@ -68,14 +68,16 @@ namespace DepartmentsEmployees
                                 Console.Clear();
                                 Console.WriteLine("Cannot delete department with working employees.");
                                 Console.WriteLine("Please fire or transfer:");
+                                Console.WriteLine("");
                                 foreach(var employee in employees)
                                 {
                                     if (employee.DepartmentId == deleteDeptInput)
                                     {
                                         Console.WriteLine($"{employee.FirstName} {employee.LastName}");
-                                        Console.WriteLine("");
                                     }
                                 }
+                                Console.WriteLine("Press enter to return");
+                                Console.ReadLine();
                                 break;
                             }
                         case 3:
@@ -135,7 +137,7 @@ namespace DepartmentsEmployees
                             var updateEmployeeInput = Int32.Parse(Console.ReadLine());
                             var selectedEmployee = repo.GetEmployeeById(updateEmployeeInput);
                             Console.Clear();
-                            Console.WriteLine($"{selectedEmployee.FirstName} {selectedEmployee.LastName} {selectedEmployee.Department.DeptName}");
+                            Console.WriteLine($"{selectedEmployee.FirstName} {selectedEmployee.LastName} who works in {selectedEmployee.Department.DeptName}");
                             Console.WriteLine("");
                             Console.WriteLine("What would you like to update?");
                             Console.WriteLine("1. Name");
